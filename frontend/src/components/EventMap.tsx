@@ -1,6 +1,12 @@
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps'
+import type { EventItem } from "#types/event";
 
-const EventMap = ({ latitude, longitude }) => {
+interface EventCardProps {
+    latitude: number;
+    longitude: number;
+}
+
+const EventMap = ({ latitude, longitude }: EventCardProps) => {
     const position = {
         lat: latitude,
         lng: longitude,

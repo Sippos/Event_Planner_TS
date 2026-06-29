@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import EventMap from './EventMap'
+import type { EventItem } from "#types/event";
+
+interface EventCardProps {
+    latitude: EventItem;
+}
 
 
 const EventDetails = () => {
     const { id } = useParams() 
 
-    const [event, setEvent] = useState(null)
+    const [event, setEvent] = useState<EventItem>()
     const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -25,7 +30,9 @@ const EventDetails = () => {
             const data = await response.json()
             setEvent(data)
         } catch(err) {
-            setError(err.message)
+            if (err instanceof Error) {
+                setError(err.message)
+            }
         } finally {
             setIsLoading(false)
         }

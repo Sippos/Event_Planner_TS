@@ -1,6 +1,11 @@
 import EventCard from "./EventCard";
+import type { EventItem } from "#types/event";
 
-const EventGrid = ({events}) => {
+interface EventCardProps {
+    events: EventItem[];
+}
+
+const EventGrid = ({events}: EventCardProps) => {
     const sortedEvents = [...events].sort((a, b) => {
         const timeA = new Date(a.date).getTime()
         const timeB = new Date(b.date).getTime()

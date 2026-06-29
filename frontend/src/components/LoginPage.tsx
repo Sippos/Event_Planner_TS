@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, type ReactHTMLElement} from 'react'
 
 const LoginPage = () => {
     const [isLoginMode, setIsLoginMode] = useState(true)
@@ -7,12 +7,12 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('')
 
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
     
     
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
         setError(null)
 
@@ -52,7 +52,9 @@ const LoginPage = () => {
                 setPassword('')
             }
             } catch (err) {
-                setError(err.message)
+                if (err instanceof Error) {
+                    setError(err.message)
+                }
             } finally {
                 setIsLoading(false)
             }

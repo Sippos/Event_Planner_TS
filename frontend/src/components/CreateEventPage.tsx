@@ -11,12 +11,10 @@ const CreateEventPage = () => {
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
 
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
-
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         console.log("Form submitted")
         setError(null)
@@ -60,7 +58,9 @@ const CreateEventPage = () => {
 
             navigate(`/events/${data.id}`)
         } catch (err) {
-            setError(err.message)
+            if (err instanceof Error) {
+                setError(err.message)
+            }
         } finally {
             setIsLoading(false)
         }

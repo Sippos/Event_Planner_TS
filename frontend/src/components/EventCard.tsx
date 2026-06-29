@@ -1,6 +1,11 @@
 import {Link} from "react-router-dom";
+import type { EventItem } from "#types/event";
 
-const EventCard = ({event}) => {
+interface EventCardProps {
+    event: EventItem;
+}
+
+const EventCard = ({event}: EventCardProps) => {
     return (
         <article className="glass-card relative rounded-xl overflow-hidden flex flex-col group">
             <div className="h-48 relative overflow-hidden bg-surface-container-highest">

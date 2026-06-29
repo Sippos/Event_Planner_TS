@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import type { EventItem } from '#types/event';
 import EventGrid from "./components/EventGrid"; 
 import Spinner from "./components/Spinner";
 
 const App = () => {
-    const [events, setEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [events, setEvents] = useState<EventItem[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -30,7 +31,9 @@ const App = () => {
                 setEvents(data.results);
                 setLoading(false);
             } catch (err) {
-                setError(err.message);
+                if (err instanceof Error) {
+                    setError(err.message);
+                }
                 setLoading(false);
             }
         };
